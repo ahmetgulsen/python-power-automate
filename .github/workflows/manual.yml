@@ -1,7 +1,13 @@
 name: Run Python Script
 
 on:
-  workflow_dispatch:  # Allows you to manually trigger the action via API or GitHub interface
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON input for the Python script'
+        required: true
+        default: '{"name": "Guest"}'
+        type: string
 
 jobs:
   run-python:
@@ -18,4 +24,5 @@ jobs:
 
     - name: Run Python script
       run: |
-        python script.py '${{ github.event.inputs.payload }}'
+        echo "Input Payload: ${{ inputs.payload }}"  # Debug line to check the input
+        python script.py '${{ inputs.payload }}'
