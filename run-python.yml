@@ -17,11 +17,5 @@ jobs:
         python-version: '3.x'
 
     - name: Run Python script
-      id: run_script
       run: |
         python script.py '${{ github.event.inputs.payload }}'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Output result
-      run: echo "Script output: ${{ steps.run_script.outputs.result }}"
