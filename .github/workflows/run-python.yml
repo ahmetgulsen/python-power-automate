@@ -1,0 +1,27 @@
+name: Run Python Script
+
+on:
+  workflow_dispatch:  # This allows you to manually trigger the action via API or GitHub interface
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+
+    - name: Run Python script
+      id: run_script
+      run: |
+        python script.py '${{ github.event.inputs.payload }}'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Output result
+      run: echo "Script output: ${{ steps.run_script.outputs.result }}"
